@@ -1,17 +1,17 @@
 import express from 'express';
 import connectDB from './database';
 import productRoutes from './product.routes';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const app = express();
-const port = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use('/api', productRoutes);
 
 connectDB().then(() => {
-  app.listen(port, () => {
-    console.log(`Server running on http://localhost:${port}`);
-  });
+  console.log('MongoDB connected');
 });
 
 export default app;
