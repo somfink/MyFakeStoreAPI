@@ -8,23 +8,17 @@ export const getProducts = async (req: Request, res: Response) => {
     const { category, name, pageSize, itemLimit } = req.query;
 
     if (category) {
-      const filteredProducts = products?.map(
-        (product) => product.category === category
-      );
+      const filteredProducts = await Product.find({
+        category,
+      });
 
       return res.json(filteredProducts);
     }
 
     if (name) {
-      // const filteredProducts = await Product.find({
-      //   title: { $regex: name, $options: "i" },
-      // });
-
-      const filteredProducts = products?.map(
-        (product) => product.category === category
-      );
-
-      console.log(filteredProducts);
+      const filteredProducts = await Product.find({
+        title: { $regex: name, $options: "i" },
+      });
 
       return res.json(filteredProducts);
     }
