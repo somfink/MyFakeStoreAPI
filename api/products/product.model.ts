@@ -1,6 +1,6 @@
-import { Schema, model, Document } from 'mongoose';
+import { Schema, model } from 'mongoose';
 
-interface IProduct extends Document {
+type Product = {
   name: string;
   price: number;
   description: string;
@@ -8,7 +8,7 @@ interface IProduct extends Document {
   image: string;
 }
 
-const productSchema = new Schema<IProduct>({
+const productSchema = new Schema<Product>({
   name: { type: String, required: true },
   price: { type: Number, required: true },
   description: { type: String, required: true },
@@ -16,6 +16,6 @@ const productSchema = new Schema<IProduct>({
   image: { type: String, required: true },
 });
 
-const Product = model<IProduct>('Product', productSchema);
+const Product = model<Product>('Product', productSchema);
 
 export default Product;
