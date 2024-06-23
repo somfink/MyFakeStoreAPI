@@ -1,4 +1,5 @@
-import { Schema, model } from "mongoose";
+import { PaginateModel, Schema, model } from "mongoose";
+import mongoosePaginate from "mongoose-paginate-v2";
 
 enum ProductCategory {
   Electronics = "Electronics",
@@ -28,6 +29,11 @@ const productSchema = new Schema<Product>({
   image: { type: String, required: true },
 });
 
-const Product = model<Product>("Product", productSchema);
+productSchema.plugin(mongoosePaginate);
+
+const Product = model<Product, PaginateModel<Product>>(
+  "Product",
+  productSchema
+);
 
 export default Product;
